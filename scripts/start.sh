@@ -58,5 +58,13 @@ fi
 # Again set the right permissions (needed when mounting from a volume)
 chown -Rf www-data.www-data /usr/share/nginx/html/
 
+# Fixes for postfix
+sudo cp -f /etc/services /var/spool/postfix/etc/services
+sudo cp -f /etc/resolv.conf /var/spool/postfix/etc/resolv.conf
+
+# Start rsyslog and postfix
+rsyslogd
+postfix start
+
 # Start supervisord and services
 /usr/bin/supervisord -n -c /etc/supervisord.conf
