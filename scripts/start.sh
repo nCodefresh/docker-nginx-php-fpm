@@ -62,6 +62,10 @@ chown -Rf www-data.www-data /usr/share/nginx/html/
 sudo cp -f /etc/services /var/spool/postfix/etc/services
 sudo cp -f /etc/resolv.conf /var/spool/postfix/etc/resolv.conf
 
+# Set mailname
+postconf myhostname=$(hostname)
+postconf mydestination=$(hostname)
+
 # Start rsyslog and postfix
 rsyslogd
 postfix start
