@@ -1,0 +1,33 @@
+version: '3'
+services:
+  nginx-php-fpm:
+    build:
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - beanstalkd
+      - redis
+    ports:
+      - 80
+
+  mysql:
+    image: 'mysql:latest'
+    ports:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=database
+
+  beanstalkd:
+    build:
+      dockerfile: Dockerfile.beanstalkd
+    ports:
+      - 11300
+
+  redis:
+    build:
+      dockerfile: Dockerfile.redis
+    ports:
+      - 6379
